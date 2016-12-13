@@ -3,7 +3,7 @@
 var ejs = require('ejs');
 
 
-exports.RecipeList_OneItem = ejs.compile("<div class=\"grid_4\">\n        <div class=\"gall_block\">\n          <div class=\"maxheight\">\n            <a class=\"gall_item\"><img class=\"gall_item\" src=\"<%= recipe.imageURL %>\"></a>\n            <div class=\"gall_bot\">\n            <div class=\"text1\"><%= recipe.name %></div> \n            <a href=\"#\" class=\"btn\">more</a></div>\n          </div>\n        </div>\n      </div>");
+exports.RecipeList_OneItem = ejs.compile("<div class=\"grid_4\">\n        <div class=\"gall_block\">\n          <div class=\"maxheight\">\n            <a class=\"gall_item show_popup\" rel=\"recipe_info\"><img src=\"<%= recipe.imageURL %>\"></a>\n            <div class=\"gall_bot\">\n            <div class=\"text1\"><%= recipe.name %></div> \n            <a href=\"#\" class=\"btn\">more</a></div>\n          </div>\n        </div>\n      </div>");
 
 exports.Recipe_OneItem = ejs.compile("");
 
@@ -41,6 +41,35 @@ function showRecipeList(list) {
 function initialiseMenu() {
     showRecipeList(Recipe_List); 
 }
+
+
+//script for popups
+	$('a.show_popup').click(function () {
+		$('div.'+$(this).attr("rel")).fadeIn(500);
+		$("body").append("<div id='overlay'></div>");
+		$('#overlay').show().css({'filter' : 'alpha(opacity=80)'});
+		return false;				
+	});	
+	$('a.close').click(function () {
+		$(this).parent().fadeOut(100);
+		$('#overlay').remove('#overlay');
+		return false;
+	});
+	
+	//script for tabs
+	$("div.selectTabs").each(function () {
+		var tmp = $(this);
+		$(tmp).find(".lineTabs li").each(function (i) {
+			$(tmp).find(".lineTabs li:eq("+i+") a").click(function(){
+				var tab_id=i+1;
+				$(tmp).find(".lineTabs li").removeClass("active");
+				$(this).parent().addClass("active");
+				$(tmp).find(".tab_content div").stop(false,false).hide();
+				$(tmp).find(".tab"+tab_id).stop(false,false).fadeIn(300);
+				return false;
+			});
+		});
+	});
 
 exports.initialiseMenu = initialiseMenu;
 },{"../Templates":1,"../recipe_list":4}],4:[function(require,module,exports){
