@@ -7,75 +7,420 @@ exports.RecipeList_OneItem = ejs.compile("<div class=\"grid_4\">\n        <div c
 
 exports.Recipe_OneItem = ejs.compile("");
 
-},{"ejs":5}],2:[function(require,module,exports){
+},{"ejs":9}],2:[function(require,module,exports){
 $(function(){
     //This code will execute when the page is ready
     var RecipeMenu = require('./recipe/RecipeMenu');
-  
+    var  RandomRecipe = require('./recipe/RandomRecipe');
+    var Tastes = require('./recipe/Tastes');
+    
     RecipeMenu.initialiseMenu();
+  //  Tastes.initialiseCheckboxes();
 });
-},{"./recipe/RecipeMenu":3}],3:[function(require,module,exports){
+},{"./recipe/RandomRecipe":3,"./recipe/RecipeMenu":4,"./recipe/Tastes":5}],3:[function(require,module,exports){
+
+},{}],4:[function(require,module,exports){
 var Templates = require('../Templates');
 var Recipe_List = require('../recipe_list');
+
 var $recipe_list = $("#recipe_list");
+var id=0;
+var breakfastRecipeId=0;
+var lunchRecipeId=0;
+var dinerRecipeId=0;
+var RecipeArray =[];
+var BreakfastArray =[];
+var LunchArray =[];
+var DinerArray =[];
+
 
 function showRecipeList(list) {
     $recipe_list.html("");
 
     function showOneRecipe(recipe) {
+        addToArray(RecipeArray, recipe, id);
+        
+//        console.log("all - id:"+ RecipeArray[id].id + " name: " + RecipeArray[id].recipe.name + " type: " +RecipeArray[id].recipe.type);       
+        
+        if(recipe.type[0]=="breakfast" || recipe.type[1]=="breakfast" || recipe.type[3]=="breakfast"){
+            addToArray(BreakfastArray, recipe, breakfastRecipeId);
+            breakfastRecipeId+=1;
+        }
+        
+         if(recipe.type[0]=="lunch" || recipe.type[1]=="lunch" || recipe.type[3]=="lunch"){
+            addToArray(LunchArray, recipe, lunchRecipeId);
+            lunchRecipeId+=1;
+        }
+        
+         if(recipe.type[0]=="diner" || recipe.type[1]=="diner" || recipe.type[3]=="diner"){
+            addToArray(DinerArray, recipe, dinerRecipeId);
+            dinerRecipeId+=1;
+        }    
         var html_code = Templates.RecipeList_OneItem({recipe: recipe});
-
         var $node = $(html_code);
-        console.log(recipe.name);
-
         $node.find(".more").click(function(){
             
-        });
-        
+        });      
         $recipe_list.append($node);
+        id+=1;
     }
-
-    list.forEach(showOneRecipe);
+    list.forEach(showOneRecipe);   
 }
 
 function initialiseMenu() {
     showRecipeList(Recipe_List); 
 }
 
+function addToArray(array, recipe, id) {   
+     array.push({
+        id: id,
+        recipe: recipe
+    });   
+}
 
-//script for popups
-	$('a.show_popup').click(function () {
-		$('div.'+$(this).attr("rel")).fadeIn(500);
-		$("body").append("<div id='overlay'></div>");
-		$('#overlay').show().css({'filter' : 'alpha(opacity=80)'});
-		return false;				
-	});	
-	$('a.close').click(function () {
-		$(this).parent().fadeOut(100);
-		$('#overlay').remove('#overlay');
-		return false;
-	});
-	
-	//script for tabs
-	$("div.selectTabs").each(function () {
-		var tmp = $(this);
-		$(tmp).find(".lineTabs li").each(function (i) {
-			$(tmp).find(".lineTabs li:eq("+i+") a").click(function(){
-				var tab_id=i+1;
-				$(tmp).find(".lineTabs li").removeClass("active");
-				$(this).parent().addClass("active");
-				$(tmp).find(".tab_content div").stop(false,false).hide();
-				$(tmp).find(".tab"+tab_id).stop(false,false).fadeIn(300);
-				return false;
-			});
-		});
-	});
+$("#random-breakfast").click(function(){
+   console.log(randomRecipe(BreakfastArray));
+});
+
+$("#random-lunch").click(function(){
+   console.log(randomRecipe(LunchArray));
+});
+
+$("#random-diner").click(function(){
+   console.log(randomRecipe(DinerArray));
+});
+
+
+function randomRecipe(array) {
+    var number = parseInt(Math.random() * (array.length)); 
+    console.log("random id = "+number)
+    return array[number].recipe.type;
+}
 
 exports.initialiseMenu = initialiseMenu;
-},{"../Templates":1,"../recipe_list":4}],4:[function(require,module,exports){
+},{"../Templates":1,"../recipe_list":7}],5:[function(require,module,exports){
+var TastesArray= [];
+
+var storage = require("./storage");
+
+var StorageTastesArray = storage.get("tastes");
+
+if(StorageTastesArray){
+  
+    TastesArray = StorageTastesArray;
+    
+    initialiseCheckboxes();
+} else {
+    TastesArray= [{taste: "meat", check: 0},{taste: "milk", check: 0},{taste: "cheese", check: 0},
+                 {taste: "butter", check: 0 },{taste: "eggs", check: 0},{taste: "flour", check: 0},
+                 {taste: "sugar", check: 0 },{taste: "salt", check: 0},{taste: "soda", check: 0},
+                 {taste: "cornstarch", check: 0 },{taste: "cinnamon", check: 0},{taste: "oats", check: 0},
+                 {taste: "nuts", check: 0 }];
+    initialiseCheckboxes();
+}
+    
+    
+
+
+function initialiseCheckboxes(){
+    TastesArray.forEach(function(item) {
+       
+        if ("meat" == item.taste){
+            if(item.check==1){
+                $("#meat").attr('checked', 'checked');
+            } 
+        }
+
+        if ("milk" == item.taste){
+            if(item.check==1){
+                $("#milk").attr('checked', 'checked');
+            } 
+        }
+        
+        if ("cheese" == item.taste){
+            if(item.check==1){
+                $("#cheese").attr('checked', 'checked');
+            } 
+        }
+        
+        if ("butter" == item.taste){
+            if(item.check==1){
+                $("#butter").attr('checked', 'checked');
+            } 
+        }
+        
+        if ("eggs" == item.taste){
+            if(item.check==1){
+                $("#eggs").attr('checked', 'checked');
+            } 
+        }
+        
+         if ("flour" == item.taste){
+            if(item.check==1){
+                $("#flour").attr('checked', 'checked');
+            } 
+        }
+        
+         if ("sugar" == item.taste){
+            if(item.check==1){
+                $("#sugar").attr('checked', 'checked');
+            } 
+        }
+        
+         if ("salt" == item.taste){
+            if(item.check==1){
+                $("#salt").attr('checked', 'checked');
+            } 
+        }
+        
+         if ("soda" == item.taste){
+            if(item.check==1){
+                $("#soda").attr('checked', 'checked');
+            } 
+        }
+        
+         if ("cornstarch" == item.taste){
+            if(item.check==1){
+                $("#cornstarch").attr('checked', 'checked');
+            } 
+        }
+        
+         if ("cinnamon" == item.taste){
+            if(item.check==1){
+                $("#cinnamon").attr('checked', 'checked');
+            } 
+        }
+        
+         if ("oats" == item.taste){
+            if(item.check==1){
+                $("#oats").attr('checked', 'checked');
+            } 
+        }
+        
+         if ("nuts" == item.taste){
+            if(item.check==1){
+                $("#nuts").attr('checked', 'checked');
+            } 
+        }
+        
+	});
+  
+}
+
+
+$("#meat").click(function() {
+	var id = -1;
+	TastesArray.forEach(function(item) {
+		if ("meat" == item.taste) id = TastesArray.indexOf(item);
+	});
+	if ($(this).is(':checked')) {
+     //   console.log("meat before check " + TastesArray[id].check);
+		TastesArray[id].check = 1;
+      //  console.log("meat after check " + TastesArray[id].check);
+	} else {
+    //    console.log("meat before uncheck " + TastesArray[id].check);
+		TastesArray[id].check = 0;
+    //    console.log("meat after uncheck " + TastesArray[id].check);
+	}  
+    storage.set("tastes", TastesArray); 
+  //  console.log("tastes "+TastesArray[id].taste +" "+TastesArray[id].check);
+  //  console.log("storage "+ StorageTastesArray[id].taste +" "+StorageTastesArray[id].check);
+});
+
+$("#milk").click(function() {
+	var id = -1;
+	TastesArray.forEach(function(item) {
+		if ("milk" == item.taste) id = TastesArray.indexOf(item);
+	});
+	if ($(this).is(':checked')) {
+     //   console.log("milk before check " + TastesArray[id].check);
+		TastesArray[id].check = 1;
+      //  console.log("milk after check " + TastesArray[id].check);
+	} else {
+	//	console.log("milk before uncheck " + TastesArray[id].check);
+		TastesArray[id].check = 0;
+     //   console.log("milk after uncheck " + TastesArray[id].check);
+	}  
+    storage.set("tastes", TastesArray); 
+  //  console.log("tastes "+ TastesArray[id].taste +" "+TastesArray[id].check);
+   //  console.log("storage "+ StorageTastesArray[id].taste +" "+StorageTastesArray[id].check);
+});
+
+$("#cheese").click(function() {
+	var id = -1;
+	TastesArray.forEach(function(item) {
+		if ("cheese" == item.taste) id = TastesArray.indexOf(item);
+	});
+	if ($(this).is(':checked')) {
+		TastesArray[id].check = 1;
+	} else {
+		TastesArray[id].check = 0;
+	}
+    storage.set("tastes", TastesArray); 
+});
+
+$("#butter").click(function() {
+	var id = -1;
+	TastesArray.forEach(function(item) {
+		if ("butter" == item.taste) id = TastesArray.indexOf(item);
+	});
+	if ($(this).is(':checked')) {
+		TastesArray[id].check = 1;
+	} else {
+		TastesArray[id].check = 0;
+	}
+    storage.set("tastes", TastesArray); 
+});
+
+$("#eggs").click(function() {
+	var id = -1;
+	TastesArray.forEach(function(item) {
+		if ("eggs" == item.taste) id = TastesArray.indexOf(item);
+	});
+	if ($(this).is(':checked')) {
+		TastesArray[id].check = 1;
+	} else {
+		TastesArray[id].check = 0;
+	}
+    storage.set("tastes", TastesArray); 
+});
+
+$("#flour").click(function() {
+	var id = -1;
+	TastesArray.forEach(function(item) {
+		if ("flour" == item.taste) id = TastesArray.indexOf(item);
+	});
+	if ($(this).is(':checked')) {
+		TastesArray[id].check = 1;
+	} else {
+		TastesArray[id].check = 0;
+	}
+    storage.set("tastes", TastesArray); 
+});
+
+$("#sugar").click(function() {
+	var id = -1;
+	TastesArray.forEach(function(item) {
+		if ("sugar" == item.taste) id = TastesArray.indexOf(item);
+	});
+	if ($(this).is(':checked')) {
+		TastesArray[id].check = 1;
+	} else {
+		TastesArray[id].check = 0;
+	}
+    storage.set("tastes", TastesArray); 
+});
+
+$("#salt").click(function() {
+	var id = -1;
+	TastesArray.forEach(function(item) {
+		if ("salt" == item.taste) id = TastesArray.indexOf(item);
+	});
+	if ($(this).is(':checked')) {
+		TastesArray[id].check = 1;
+	} else {
+		TastesArray[id].check = 0;
+	}
+    storage.set("tastes", TastesArray); 
+});
+
+$("#soda").click(function() {
+    	var id = -1;
+	TastesArray.forEach(function(item) {
+		if ("soda" == item.taste) id = TastesArray.indexOf(item);
+	});
+	if ($(this).is(':checked')) {
+		TastesArray[id].check = 1;
+	} else {
+		TastesArray[id].check = 0;
+	}
+    storage.set("tastes", TastesArray); 
+});
+
+$("#cornstarch").click(function() {
+    	var id = -1;
+	TastesArray.forEach(function(item) {
+		if ("cornstarch" == item.taste) id = TastesArray.indexOf(item);
+	});
+	if ($(this).is(':checked')) {
+		TastesArray[id].check = 1;
+	} else {
+		TastesArray[id].check = 0;
+	}
+    storage.set("tastes", TastesArray); 
+});
+
+$("#cinnamon").click(function() {
+	var id = -1;
+	TastesArray.forEach(function(item) {
+		if ("cinnamon" == item.taste) id = TastesArray.indexOf(item);
+	});
+	if ($(this).is(':checked')) {
+		TastesArray[id].check = 1;
+	} else {
+		TastesArray[id].check = 0;
+	}
+    storage.set("tastes", TastesArray); 
+});
+
+$("#oats").click(function() {
+	var id = -1;
+	TastesArray.forEach(function(item) {
+		if ("oats" == item.taste) id = TastesArray.indexOf(item);
+	});
+	if ($(this).is(':checked')) {
+		TastesArray[id].check = 1;
+	} else {
+		TastesArray[id].check = 0;
+	}
+    storage.set("tastes", TastesArray); 
+});
+
+$("#nuts").click(function() {
+	var id = -1;
+	TastesArray.forEach(function(item) {
+		if ("nuts" == item.taste) id = TastesArray.indexOf(item);
+	});
+	if ($(this).is(':checked')) {
+		TastesArray[id].check = 1;
+	} else {
+		TastesArray[id].check = 0;
+	}
+    storage.set("tastes", TastesArray); 
+    
+});
+
+function updateTastes(){
+    var $node = $("#tastes").html();  
+    $("#tastes").html("");
+    $("#tastes").append($node);
+    
+  //  initialiseCheckboxes(TastesArray);  
+}
+
+
+$("#clear_tastes").click(clearTastes());
+
+function clearTastes(){
+    TastesArray= [{taste: "meat", check: 0},{taste: "milk", check: 0},{taste: "cheese", check: 0},
+                 {taste: "butter", check: 0 },{taste: "eggs", check: 0},{taste: "flour", check: 0},
+                 {taste: "sugar", check: 0 },{taste: "salt", check: 0},{taste: "soda", check: 0},
+                 {taste: "cornstarch", check: 0 },{taste: "cinnamon", check: 0},{taste: "oats", check: 0},
+                 {taste: "nuts", check: 0 }];
+    storage.clear;
+}
+
+},{"./storage":6}],6:[function(require,module,exports){
+var basil = require('basil.js'); basil = new basil();
+exports.get = function(key) {
+return basil.get(key); };
+exports.set = function(key, value) {
+return basil.set(key, value); };
+},{"basil.js":8}],7:[function(require,module,exports){
 var recipe_info = [
     {
         name: "Crock Pot Roast",
+        type: ["diner", "lunch"],
         "ingredients": [
             {
                 "quantity": "1",
@@ -120,6 +465,7 @@ var recipe_info = [
     },
     {
         "name": "Roasted Asparagus",
+        type: ["lunch"],
         "ingredients": [
             {
                 "quantity": "1 lb",
@@ -166,6 +512,7 @@ var recipe_info = [
     },
     {
         "name": "Curried Lentils and Rice",
+        type: ["diner", "lunch"],
         "ingredients": [
             {
                 "quantity": "1 quart",
@@ -211,6 +558,7 @@ var recipe_info = [
     },
     {
         "name": "Big Night Pizza",
+         type: ["diner", "lunch"],
         "ingredients": [
             {
                 "quantity": "5 teaspoons",
@@ -275,6 +623,7 @@ var recipe_info = [
     },
     {
         "name": "Apple Stuffed Acorn Squash",
+         type: ["breakfast", "lunch"],
         "ingredients": [
             {
                 "quantity": "2",
@@ -332,6 +681,7 @@ var recipe_info = [
     },
     {
         "name": "Mic's Yorkshire Puds",
+         type: ["breakfast"],
         "ingredients": [
             {
                 "quantity": "200g",
@@ -381,6 +731,7 @@ var recipe_info = [
     },
     {
         "name": "Old-Fashioned Oatmeal Cookies",
+         type: ["breakfast"],
         "ingredients": [
             {
                 "quantity": "1 cup",
@@ -472,6 +823,7 @@ var recipe_info = [
     },
     {
         "name": "Blueberry Oatmeal Squares",
+         type: ["breakfast", "diner"],
         "ingredients": [
             {
                 "quantity": "2-1/2 cups",
@@ -549,6 +901,7 @@ var recipe_info = [
     },
     {
         "name": "Curried chicken salad",
+         type: ["diner", "lunch"],
         "ingredients": [
             {
                 "quantity": "3",
@@ -639,7 +992,395 @@ var recipe_info = [
     ];
 
 module.exports = recipe_info;
-},{}],5:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
+(function () {
+	// Basil
+	var Basil = function (options) {
+		return Basil.utils.extend({}, Basil.plugins, new Basil.Storage().init(options));
+	};
+
+	// Version
+	Basil.version = '0.4.4';
+
+	// Utils
+	Basil.utils = {
+		extend: function () {
+			var destination = typeof arguments[0] === 'object' ? arguments[0] : {};
+			for (var i = 1; i < arguments.length; i++) {
+				if (arguments[i] && typeof arguments[i] === 'object')
+					for (var property in arguments[i])
+						destination[property] = arguments[i][property];
+			}
+			return destination;
+		},
+		each: function (obj, fnIterator, context) {
+			if (this.isArray(obj)) {
+				for (var i = 0; i < obj.length; i++)
+					if (fnIterator.call(context, obj[i], i) === false) return;
+			} else if (obj) {
+				for (var key in obj)
+					if (fnIterator.call(context, obj[key], key) === false) return;
+			}
+		},
+		tryEach: function (obj, fnIterator, fnError, context) {
+			this.each(obj, function (value, key) {
+				try {
+					return fnIterator.call(context, value, key);
+				} catch (error) {
+					if (this.isFunction(fnError)) {
+						try {
+							fnError.call(context, value, key, error);
+						} catch (error) {}
+					}
+				}
+			}, this);
+		},
+		registerPlugin: function (methods) {
+			Basil.plugins = this.extend(methods, Basil.plugins);
+		},
+		getTypeOf: function (obj) {
+			if (typeof obj === 'undefined' || obj === null)
+				return '' + obj;
+			return Object.prototype.toString.call(obj).replace(/^\[object\s(.*)\]$/, function ($0, $1) { return $1.toLowerCase(); });
+		}
+	};
+  	// Add some isType methods: isArguments, isBoolean, isFunction, isString, isArray, isNumber, isDate, isRegExp, isUndefined, isNull.
+	var types = ['Arguments', 'Boolean', 'Function', 'String', 'Array', 'Number', 'Date', 'RegExp', 'Undefined', 'Null'];
+	for (var i = 0; i < types.length; i++) {
+		Basil.utils['is' + types[i]] = (function (type) {
+			return function (obj) {
+				return Basil.utils.getTypeOf(obj) === type.toLowerCase();
+			};
+		})(types[i]);
+	}
+
+	// Plugins
+	Basil.plugins = {};
+
+	// Options
+	Basil.options = Basil.utils.extend({
+		namespace: 'b45i1',
+		storages: ['local', 'cookie', 'session', 'memory'],
+		expireDays: 365
+	}, window.Basil ? window.Basil.options : {});
+
+	// Storage
+	Basil.Storage = function () {
+		var _salt = 'b45i1' + (Math.random() + 1)
+				.toString(36)
+				.substring(7),
+			_storages = {},
+			_isValidKey = function (key) {
+				var type = Basil.utils.getTypeOf(key);
+				return (type === 'string' && key) || type === 'number' || type === 'boolean';
+			},
+			_toStoragesArray = function (storages) {
+				if (Basil.utils.isArray(storages))
+					return storages;
+				return Basil.utils.isString(storages) ? [storages] : [];
+			},
+			_toStoredKey = function (namespace, path) {
+				var key = '';
+				if (_isValidKey(path)) {
+					key += path;
+				} else if (Basil.utils.isArray(path)) {
+					path = Basil.utils.isFunction(path.filter) ? path.filter(_isValidKey) : path;
+					key = path.join('.');
+				}
+				return key && _isValidKey(namespace) ? namespace + '.' + key : key;
+ 			},
+			_toKeyName = function (namespace, key) {
+				if (!_isValidKey(namespace))
+					return key;
+				return key.replace(new RegExp('^' + namespace + '.'), '');
+			},
+			_toStoredValue = function (value) {
+				return JSON.stringify(value);
+			},
+			_fromStoredValue = function (value) {
+				return value ? JSON.parse(value) : null;
+			};
+
+		// HTML5 web storage interface
+		var webStorageInterface = {
+			engine: null,
+			check: function () {
+				try {
+					window[this.engine].setItem(_salt, true);
+					window[this.engine].removeItem(_salt);
+				} catch (e) {
+					return false;
+				}
+				return true;
+			},
+			set: function (key, value, options) {
+				if (!key)
+					throw Error('invalid key');
+				window[this.engine].setItem(key, value);
+			},
+			get: function (key) {
+				return window[this.engine].getItem(key);
+			},
+			remove: function (key) {
+				window[this.engine].removeItem(key);
+			},
+			reset: function (namespace) {
+				for (var i = 0, key; i < window[this.engine].length; i++) {
+					key = window[this.engine].key(i);
+					if (!namespace || key.indexOf(namespace) === 0) {
+						this.remove(key);
+						i--;
+					}
+				}
+			},
+			keys: function (namespace) {
+				var keys = [];
+				for (var i = 0, key; i < window[this.engine].length; i++) {
+					key = window[this.engine].key(i);
+					if (!namespace || key.indexOf(namespace) === 0)
+						keys.push(_toKeyName(namespace, key));
+				}
+				return keys;
+			}
+		};
+
+		// local storage
+		_storages.local = Basil.utils.extend({}, webStorageInterface, {
+			engine: 'localStorage'
+		});
+		// session storage
+		_storages.session = Basil.utils.extend({}, webStorageInterface, {
+			engine: 'sessionStorage'
+		});
+
+		// memory storage
+		_storages.memory = {
+			_hash: {},
+			check: function () {
+				return true;
+			},
+			set: function (key, value, options) {
+				if (!key)
+					throw Error('invalid key');
+				this._hash[key] = value;
+			},
+			get: function (key) {
+				return this._hash[key] || null;
+			},
+			remove: function (key) {
+				delete this._hash[key];
+			},
+			reset: function (namespace) {
+				for (var key in this._hash) {
+					if (!namespace || key.indexOf(namespace) === 0)
+						this.remove(key);
+				}
+			},
+			keys: function (namespace) {
+				var keys = [];
+				for (var key in this._hash)
+					if (!namespace || key.indexOf(namespace) === 0)
+						keys.push(_toKeyName(namespace, key));
+				return keys;
+			}
+		};
+
+		// cookie storage
+		_storages.cookie = {
+			check: function () {
+				if (!navigator.cookieEnabled)
+					return false;
+				if (window.self !== window.top) {
+					// we need to check third-party cookies;
+					var cookie = 'thirdparty.check=' + Math.round(Math.random() * 1000);
+					document.cookie = cookie + '; path=/';
+					return document.cookie.indexOf(cookie) !== -1;
+				}
+				return true;
+			},
+			set: function (key, value, options) {
+				if (!this.check())
+					throw Error('cookies are disabled');
+				options = options || {};
+				if (!key)
+					throw Error('invalid key');
+				var cookie = encodeURIComponent(key) + '=' + encodeURIComponent(value);
+				// handle expiration days
+				if (options.expireDays) {
+					var date = new Date();
+					date.setTime(date.getTime() + (options.expireDays * 24 * 60 * 60 * 1000));
+					cookie += '; expires=' + date.toGMTString();
+				}
+				// handle domain
+				if (options.domain && options.domain !== document.domain) {
+					var _domain = options.domain.replace(/^\./, '');
+					if (document.domain.indexOf(_domain) === -1 || _domain.split('.').length <= 1)
+						throw Error('invalid domain');
+					cookie += '; domain=' + options.domain;
+				}
+				// handle secure
+				if (options.secure === true) {
+					cookie += '; secure';
+				}
+				document.cookie = cookie + '; path=/';
+			},
+			get: function (key) {
+				if (!this.check())
+					throw Error('cookies are disabled');
+				var encodedKey = encodeURIComponent(key);
+				var cookies = document.cookie ? document.cookie.split(';') : [];
+				// retrieve last updated cookie first
+				for (var i = cookies.length - 1, cookie; i >= 0; i--) {
+					cookie = cookies[i].replace(/^\s*/, '');
+					if (cookie.indexOf(encodedKey + '=') === 0)
+						return decodeURIComponent(cookie.substring(encodedKey.length + 1, cookie.length));
+				}
+				return null;
+			},
+			remove: function (key) {
+				// remove cookie from main domain
+				this.set(key, '', { expireDays: -1 });
+				// remove cookie from upper domains
+				var domainParts = document.domain.split('.');
+				for (var i = domainParts.length; i >= 0; i--) {
+					this.set(key, '', { expireDays: -1, domain: '.' + domainParts.slice(- i).join('.') });
+				}
+			},
+			reset: function (namespace) {
+				var cookies = document.cookie ? document.cookie.split(';') : [];
+				for (var i = 0, cookie, key; i < cookies.length; i++) {
+					cookie = cookies[i].replace(/^\s*/, '');
+					key = cookie.substr(0, cookie.indexOf('='));
+					if (!namespace || key.indexOf(namespace) === 0)
+						this.remove(key);
+				}
+			},
+			keys: function (namespace) {
+				if (!this.check())
+					throw Error('cookies are disabled');
+				var keys = [],
+					cookies = document.cookie ? document.cookie.split(';') : [];
+				for (var i = 0, cookie, key; i < cookies.length; i++) {
+					cookie = cookies[i].replace(/^\s*/, '');
+					key = decodeURIComponent(cookie.substr(0, cookie.indexOf('=')));
+					if (!namespace || key.indexOf(namespace) === 0)
+						keys.push(_toKeyName(namespace, key));
+				}
+				return keys;
+			}
+		};
+
+		return {
+			init: function (options) {
+				this.setOptions(options);
+				return this;
+			},
+			setOptions: function (options) {
+				this.options = Basil.utils.extend({}, this.options || Basil.options, options);
+			},
+			support: function (storage) {
+				return _storages.hasOwnProperty(storage);
+			},
+			check: function (storage) {
+				if (this.support(storage))
+					return _storages[storage].check();
+				return false;
+			},
+			set: function (key, value, options) {
+				options = Basil.utils.extend({}, this.options, options);
+				if (!(key = _toStoredKey(options.namespace, key)))
+					return false;
+				value = options.raw === true ? value : _toStoredValue(value);
+				var where = null;
+				// try to set key/value in first available storage
+				Basil.utils.tryEach(_toStoragesArray(options.storages), function (storage, index) {
+					_storages[storage].set(key, value, options);
+					where = storage;
+					return false; // break;
+				}, null, this);
+				if (!where) {
+					// key has not been set anywhere
+					return false;
+				}
+				// remove key from all other storages
+				Basil.utils.tryEach(_toStoragesArray(options.storages), function (storage, index) {
+					if (storage !== where)
+						_storages[storage].remove(key);
+				}, null, this);
+				return true;
+			},
+			get: function (key, options) {
+				options = Basil.utils.extend({}, this.options, options);
+				if (!(key = _toStoredKey(options.namespace, key)))
+					return null;
+				var value = null;
+				Basil.utils.tryEach(_toStoragesArray(options.storages), function (storage, index) {
+					if (value !== null)
+						return false; // break if a value has already been found.
+					value = _storages[storage].get(key, options) || null;
+					value = options.raw === true ? value : _fromStoredValue(value);
+				}, function (storage, index, error) {
+					value = null;
+				}, this);
+				return value;
+			},
+			remove: function (key, options) {
+				options = Basil.utils.extend({}, this.options, options);
+				if (!(key = _toStoredKey(options.namespace, key)))
+					return;
+				Basil.utils.tryEach(_toStoragesArray(options.storages), function (storage) {
+					_storages[storage].remove(key);
+				}, null, this);
+			},
+			reset: function (options) {
+				options = Basil.utils.extend({}, this.options, options);
+				Basil.utils.tryEach(_toStoragesArray(options.storages), function (storage) {
+					_storages[storage].reset(options.namespace);
+				}, null, this);
+			},
+			keys: function (options) {
+				options = options || {};
+				var keys = [];
+				for (var key in this.keysMap(options))
+					keys.push(key);
+				return keys;
+			},
+			keysMap: function (options) {
+				options = Basil.utils.extend({}, this.options, options);
+				var map = {};
+				Basil.utils.tryEach(_toStoragesArray(options.storages), function (storage) {
+					Basil.utils.each(_storages[storage].keys(options.namespace), function (key) {
+						map[key] = Basil.utils.isArray(map[key]) ? map[key] : [];
+						map[key].push(storage);
+					}, this);
+				}, null, this);
+				return map;
+			}
+		};
+	};
+
+	// Access to native storages, without namespace or basil value decoration
+	Basil.memory = new Basil.Storage().init({ storages: 'memory', namespace: null, raw: true });
+	Basil.cookie = new Basil.Storage().init({ storages: 'cookie', namespace: null, raw: true });
+	Basil.localStorage = new Basil.Storage().init({ storages: 'local', namespace: null, raw: true });
+	Basil.sessionStorage = new Basil.Storage().init({ storages: 'session', namespace: null, raw: true });
+
+	// browser export
+	window.Basil = Basil;
+
+	// AMD export
+	if (typeof define === 'function' && define.amd) {
+		define(function() {
+			return Basil;
+		});
+	// commonjs export
+	} else if (typeof module !== 'undefined' && module.exports) {
+		module.exports = Basil;
+	}
+
+})();
+
+},{}],9:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates
  * Copyright 2112 Matthew Eernisse (mde@fleegix.org)
@@ -1439,7 +2180,7 @@ if (typeof window != 'undefined') {
   window.ejs = exports;
 }
 
-},{"../package.json":7,"./utils":6,"fs":8,"path":9}],6:[function(require,module,exports){
+},{"../package.json":11,"./utils":10,"fs":12,"path":13}],10:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates
  * Copyright 2112 Matthew Eernisse (mde@fleegix.org)
@@ -1604,7 +2345,7 @@ exports.cache = {
   }
 };
 
-},{}],7:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 module.exports={
   "name": "ejs",
   "description": "Embedded JavaScript templates",
@@ -1685,9 +2426,9 @@ module.exports={
   "directories": {}
 }
 
-},{}],8:[function(require,module,exports){
-
-},{}],9:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
+arguments[4][3][0].apply(exports,arguments)
+},{"dup":3}],13:[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -1915,7 +2656,7 @@ var substr = 'ab'.substr(-1) === 'b'
 ;
 
 }).call(this,require('_process'))
-},{"_process":10}],10:[function(require,module,exports){
+},{"_process":14}],14:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 

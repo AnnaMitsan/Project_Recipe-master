@@ -73,8 +73,10 @@ textarea {
 .check{
     border-radius: 0 !important;
     outline: none !important;
-    font-size: 16px;
+    font-size: 17px;
+    color: #262626;
     height: 30px;
+    margin-bottom: 3px;
     
 
 }
@@ -285,8 +287,8 @@ a:hover {
 .extra_wrapper {
     overflow: hidden;
     display: inline-block;  
-    margin-right: 75px;
-    margin-top: 30px;
+    margin-right: 85px;
+    margin-top: 15px;
 }
 .clear {
     float: none !important;
@@ -528,7 +530,7 @@ header h1 a img {
 }
 
 .form_title {
-    font-size: 16px;
+    font-size: 18px;
     position: relative;
     top: -1px;
     font-weight: normal;

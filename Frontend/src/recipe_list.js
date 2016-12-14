@@ -1,6 +1,7 @@
 var recipe_info = [
     {
         name: "Crock Pot Roast",
+        type: ["diner", "lunch"],
         "ingredients": [
             {
                 "quantity": "1",
@@ -45,6 +46,7 @@ var recipe_info = [
     },
     {
         "name": "Roasted Asparagus",
+        type: ["lunch"],
         "ingredients": [
             {
                 "quantity": "1 lb",
@@ -91,6 +93,7 @@ var recipe_info = [
     },
     {
         "name": "Curried Lentils and Rice",
+        type: ["diner", "lunch"],
         "ingredients": [
             {
                 "quantity": "1 quart",
@@ -136,6 +139,7 @@ var recipe_info = [
     },
     {
         "name": "Big Night Pizza",
+         type: ["diner", "lunch"],
         "ingredients": [
             {
                 "quantity": "5 teaspoons",
@@ -200,6 +204,7 @@ var recipe_info = [
     },
     {
         "name": "Apple Stuffed Acorn Squash",
+         type: ["breakfast", "lunch"],
         "ingredients": [
             {
                 "quantity": "2",
@@ -257,6 +262,7 @@ var recipe_info = [
     },
     {
         "name": "Mic's Yorkshire Puds",
+         type: ["breakfast"],
         "ingredients": [
             {
                 "quantity": "200g",
@@ -306,6 +312,7 @@ var recipe_info = [
     },
     {
         "name": "Old-Fashioned Oatmeal Cookies",
+         type: ["breakfast"],
         "ingredients": [
             {
                 "quantity": "1 cup",
@@ -397,6 +404,7 @@ var recipe_info = [
     },
     {
         "name": "Blueberry Oatmeal Squares",
+         type: ["breakfast", "diner"],
         "ingredients": [
             {
                 "quantity": "2-1/2 cups",
@@ -474,6 +482,7 @@ var recipe_info = [
     },
     {
         "name": "Curried chicken salad",
+         type: ["diner", "lunch"],
         "ingredients": [
             {
                 "quantity": "3",
