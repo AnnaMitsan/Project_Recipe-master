@@ -60,7 +60,7 @@ var recipe_info = [
             },
             {
                 "quantity": "1/2 tsp",
-                "name": "kosher salt",
+                "name": "salt",
                 "type": "Baking"
             }
         ],
@@ -178,7 +178,7 @@ var recipe_info = [
             },
             {
                 "quantity": "3/4 cup",
-                "name": "mozzarella cheese",
+                "name": "cheese",
                 "type": "Dairy"
             }
         ],
@@ -233,7 +233,7 @@ var recipe_info = [
             },
             {
                 "quantity": "2 tablespoons",
-                "name": "melted butter",
+                "name": "butter",
                 "type": "Dairy"
             }
         ],
@@ -266,7 +266,7 @@ var recipe_info = [
         "ingredients": [
             {
                 "quantity": "200g",
-                "name": "plain flour",
+                "name": "flour",
                 "type": "Baking"
             },
             {
@@ -371,7 +371,7 @@ var recipe_info = [
             },
             {
                 "quantity": "1/2 cup",
-                "name": "chopped nuts",
+                "name": "nuts",
                 "type": "Baking"
             }
         ],
@@ -408,12 +408,12 @@ var recipe_info = [
         "ingredients": [
             {
                 "quantity": "2-1/2 cups",
-                "name": "rolled oats, (not instant)",
+                "name": "oats",
                 "type": "Baking"
             },
             {
                 "quantity": "1-1/4 cups",
-                "name": "all-purpose flour",
+                "name": "flour",
                 "type": "Baking"
             },
             {
@@ -428,23 +428,18 @@ var recipe_info = [
             },
             {
                 "quantity": "1 cup",
-                "name": "cold butter, cubed",
+                "name": "butter",
                 "type": "Baking"
             },
             {
                 "quantity": "3/4 cup",
-                "name": "packed brown sugar",
+                "name": "sugar",
                 "type": "Baking"
             },
             {
                 "quantity": "3 cups",
                 "name": "fresh blueberries",
                 "type": "Produce"
-            },
-            {
-                "quantity": "1/2 cup",
-                "name": "granulated sugar",
-                "type": "Baking"
             },
             {
                 "quantity": "1/3 cup",
