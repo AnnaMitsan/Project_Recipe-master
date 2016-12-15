@@ -2,10 +2,14 @@
 
 var ejs = require('ejs');
 
+exports.OneRecipe = ejs.compile("<!-- The Modal -->\n<!--<div id=\"myModal\" class=\"modal\">-->\n\n  <!-- Modal content -->\n  <div class=\"modal-content\">\n    <span class=\"close\">&times;</span>\n      \n      <div class=\"recipeInfoTop\"><div class=\"recipeInfoImage\"> <img src=\"assets/images/page1_img1.jpg\" alt=\"\"> </div>\n     <% //var number = parseInt(Math.random() * (getRecipeArray().length)); \n           //   var nameR = getRecipeArray().[number].name;\n        \n          \n          //console.log(\"recipesss modal \", getRecipeArray());\n              %>\n          \n          <div class=\"recipeInfoIngredients\"> <h1> </h1>\n              \n              \n              <% \nfunction getIngredientsArray(recipe) {\n    var ingredients = recipe.ingredients;\n    var result = [];\n    Object.keys(ingredients).forEach(function(key){\n        result = result.concat(ingredients[key]);\n    });\n\n    return result;\n}  %>\n                \n                <div >\n                            <%= getIngredientsArray(recipe).join(\", \") %></div>\n                \n              \n              \n      ingredient name  -  quantity <br>\n      ingredient name  -  quantity<br>\n      ingredient name  -  quantity<br>\n      ingredient name  -  quantity<br>\n      ingredient name  -  quantity<br>\n      ingredient name  -  quantity<br>\n              \n              \n              \n              \n              \n      </div></div>\n      \n      \n      <div class=\"recipeInfoCook\"> \n      ekdgjvnfhortn'bklsfrjstlg/k erkangt vker grkinr5se kg rbktjbirlkew  rkegnriengrk   rilgo5epgk gnrt ttjkrg AZGTBHKLXTCBTNDSBCH AX N SDTCASC ADdsfvsfbvsdvsfv\n      </div>\n<!--\n    <p>Some text in the Modal..</p>\n      \n        <p>Some text in the Modal..</p>\n        <p>Some text in the Modal..</p>\n       \n-->\n  </div>\n\n<!--</div>-->");
 
-exports.RecipeList_OneItem = ejs.compile("<div class=\"grid_4\">\n        <div class=\"gall_block\">\n          <div class=\"maxheight\">\n            <a class=\"gall_item show_popup\" rel=\"recipe_info\"><img src=\"<%= recipe.imageURL %>\"></a>\n            <div class=\"gall_bot\">\n            <div class=\"text1\"><%= recipe.name %></div> \n            <a href=\"#\" class=\"btn\">more</a></div>\n          </div>\n        </div>\n      </div>");
+exports.RecipeList_OneItem = ejs.compile("<div class=\"grid_4\">\n        <div class=\"gall_block\">\n          <div class=\"maxheight\">\n            <a class=\"gall_item show_popup\" rel=\"recipe_info\"><img src=\"<%= recipe.imageURL %>\"></a>\n            <div class=\"gall_bot\">            \n                \n            <div class=\"text1\"><%= recipe.name %></div> \n            <a href=\"#\" class=\"btn all-recipes more\">more</a></div>\n          </div>\n        </div>\n      </div>");
 
-exports.Recipe_OneItem = ejs.compile("");
+
+exports.modalRecipe = ejs.compile("<!-- The Modal -->\n<!--<div id=\"myModal\" class=\"modal\">-->\n\n  <!-- Modal content -->\n  <div class=\"modal-content\">\n    <span class=\"close\">&times;</span>\n      \n      <div class=\"recipeInfoTop\"><div class=\"recipeInfoImage\"> <img src=\"assets/images/page1_img1.jpg\" alt=\"\"> </div>\n     <% //var number = parseInt(Math.random() * (getRecipeArray().length)); \n           //   var nameR = getRecipeArray().[number].name;\n        \n          \n          //console.log(\"recipesss modal \", getRecipeArray());\n              %>\n          \n          <div class=\"recipeInfoIngredients\"> <h1> </h1>\n              \n              \n              <% \nfunction getIngredientsArray(recipe) {\n    var ingredients = recipe.ingredients;\n    var result = [];\n    Object.keys(ingredients).forEach(function(key){\n        result = result.concat(ingredients[key]);\n    });\n\n    return result;\n}  %>\n                \n                <div >\n                            <%= getIngredientsArray(recipe).join(\", \") %></div>\n                \n              \n              \n      ingredient name  -  quantity <br>\n      ingredient name  -  quantity<br>\n      ingredient name  -  quantity<br>\n      ingredient name  -  quantity<br>\n      ingredient name  -  quantity<br>\n      ingredient name  -  quantity<br>\n              \n              \n              \n              \n              \n      </div></div>\n      \n      \n      <div class=\"recipeInfoCook\"> \n      ekdgjvnfhortn'bklsfrjstlg/k erkangt vker grkinr5se kg rbktjbirlkew  rkegnriengrk   rilgo5epgk gnrt ttjkrg AZGTBHKLXTCBTNDSBCH AX N SDTCASC ADdsfvsfbvsdvsfv\n      </div>\n<!--\n    <p>Some text in the Modal..</p>\n      \n        <p>Some text in the Modal..</p>\n        <p>Some text in the Modal..</p>\n       \n-->\n  </div>\n\n<!--</div>-->");
+
+
 
 },{"ejs":9}],2:[function(require,module,exports){
 $(function(){
@@ -33,8 +37,22 @@ var BreakfastArray =[];
 var LunchArray =[];
 var DinerArray =[];
 
-///var tastesRecipeArray =[];
+// Get the modal
+var modal = document.getElementById('myModal');
 
+// Get the <span> element that closes the modal
+var span = $("#close");
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
 
 var TastesArray= [];
 
@@ -74,39 +92,52 @@ function showRecipeList(list) {
 
     function showOneRecipe(recipe) {
         addToArray(RecipeArray, recipe, id);
-        
-//        console.log("all - id:"+ RecipeArray[id].id + " name: " + RecipeArray[id].recipe.name + " type: " +RecipeArray[id].recipe.type);       
-        
+         
         if(recipe.type[0]=="breakfast" || recipe.type[1]=="breakfast" || recipe.type[3]=="breakfast"){
             addToArray(BreakfastArray, recipe, breakfastRecipeId);
-             console.log("breakfast - id:"+ RecipeArray[breakfastRecipeId].id + " name: " + RecipeArray[breakfastRecipeId].recipe.name + " type: " +RecipeArray[breakfastRecipeId].recipe.type + " ingredients: "); 
             
-            for(var k=0; k<RecipeArray[breakfastRecipeId].recipe.ingredients.length; k++){
-                console.log(RecipeArray[breakfastRecipeId].recipe.ingredients[k].name);
-            }
+            //вывод назвния ингредиентов рецептов из массива завтраков
+//            for(var k=0; k<RecipeArray[breakfastRecipeId].recipe.ingredients.length; k++){
+//                console.log(RecipeArray[breakfastRecipeId].recipe.ingredients[k].name);
+//            }
             
             breakfastRecipeId+=1;
-        }
-        
-         if(recipe.type[0]=="lunch" || recipe.type[1]=="lunch" || recipe.type[3]=="lunch"){
-            addToArray(LunchArray, recipe, lunchRecipeId);
-            lunchRecipeId+=1;
         }
         
          if(recipe.type[0]=="diner" || recipe.type[1]=="diner" || recipe.type[3]=="diner"){
             addToArray(DinerArray, recipe, dinerRecipeId);
             dinerRecipeId+=1;
-        }    
-        var html_code = Templates.RecipeList_OneItem({recipe: recipe});
+        }  
+               
+       var html_code = Templates.RecipeList_OneItem({recipe: recipe});
         var $node = $(html_code);
+        
         $node.find(".more").click(function(){
-            
-        });      
+            var ingrid="";
+            for(var k=0; k<recipe.ingredients.length; k++){
+                       ingrid+=recipe.ingredients[k].name + " - " +  recipe.ingredients[k].quantity + "; <br> ";
+            }
+            var steps="";
+            for(var k=0; k<recipe.steps.length; k++){
+                       steps+=recipe.steps[k] + " ";
+            }
+
+            $(".recipeName").text(recipe.name);
+            $(".recipeInfoImage").attr("src", recipe.imageURL);
+            $(".recipeInfoIngredients").html(ingrid);
+            $(".recipeInfoCook").text(steps);
+            $("#myModal").find(".close").click(function(){
+                $("#myModal").css("display","none");
+            });
+            $("#myModal").css("display","block");
+        }); 
+        
         $recipe_list.append($node);
         id+=1;
     }
-    list.forEach(showOneRecipe);   
+    list.forEach(showOneRecipe); 
 }
+
 
 function initialiseMenu() {
     showRecipeList(Recipe_List); 
@@ -120,34 +151,79 @@ function addToArray(array, recipe, id) {
 }
 
 $("#random-breakfast").click(function(){
-   console.log(randomRecipe(BreakfastArray));
+   // console.log(randomRecipe(BreakfastArray).name);
+    var randRecipe = randomRecipe(BreakfastArray);
+    var ingrid="";
+    for(var k=0; k<randRecipe.ingredients.length; k++){
+               ingrid+=randRecipe.ingredients[k].name + " - " +  randRecipe.ingredients[k].quantity + "; <br> ";
+    }
+    var steps="";
+    for(var k=0; k<randRecipe.steps.length; k++){
+               steps+=randRecipe.steps[k] + " ";
+    }
+    
+    $(".recipeName").text(randRecipe.name);
+    $(".recipeInfoImage").attr("src", randRecipe.imageURL);
+    $(".recipeInfoIngredients").html(ingrid);
+    $(".recipeInfoCook").text(steps);
+    $("#myModal").find(".close").click(function(){
+                $("#myModal").css("display","none");
+            });
+    
+    modal.style.display = "block"; 
 });
 
 $("#random-lunch").click(function(){
-   console.log(randomRecipe(LunchArray));
+    LunchArray=BreakfastArray;
+    var randRecipe = randomRecipe(BreakfastArray);
+    var ingrid="";
+    for(var k=0; k<randRecipe.ingredients.length; k++){
+               ingrid+=randRecipe.ingredients[k].name + " - " +  randRecipe.ingredients[k].quantity + "; <br> ";
+    }
+    var steps="";
+    for(var k=0; k<randRecipe.steps.length; k++){
+               steps+=randRecipe.steps[k] + " ";
+    }
+    
+    $(".recipeName").text(randRecipe.name);
+    $(".recipeInfoImage").attr("src", randRecipe.imageURL);
+    $(".recipeInfoIngredients").html(ingrid);
+    $(".recipeInfoCook").text(steps);
+    $("#myModal").find(".close").click(function(){
+                $("#myModal").css("display","none");
+            });
+    modal.style.display = "block";  
 });
 
 $("#random-diner").click(function(){
-   console.log(randomRecipe(DinerArray));
+    var randRecipe = randomRecipe(BreakfastArray);
+    var ingrid="";
+    for(var k=0; k<randRecipe.ingredients.length; k++){
+               ingrid+=randRecipe.ingredients[k].name + " - " +  randRecipe.ingredients[k].quantity + "; <br> ";
+    }
+    var steps="";
+    for(var k=0; k<randRecipe.steps.length; k++){
+               steps+=randRecipe.steps[k] + " ";
+    }
+    
+    $(".recipeName").text(randRecipe.name);
+    $(".recipeInfoImage").attr("src", randRecipe.imageURL);
+    $(".recipeInfoIngredients").html(ingrid);
+    $(".recipeInfoCook").text(steps);
+    $("#myModal").find(".close").click(function(){
+                $("#myModal").css("display","none");
+            });
+    modal.style.display = "block";
 });
 
 
-function randomRecipe(array) {
-    var number = parseInt(Math.random() * (array.length)); 
-    console.log("random id = "+number)
-    return array[number].recipe.type;
+function randomRecipe(list) {
+    var number = parseInt(Math.random() * (list.length));   
+    return list[number].recipe;
+    
 }
 
-///console.log(getTastesArray());
 
-/////
-//////////
-//////
-///////
-//////
-////
-////
-////
 
 
 
@@ -441,11 +517,8 @@ function clearTastes(){
 }
 
 
-console.log("all recipes "+getRecipeArray());
-
-console.log("tastes " +getTastesArray());
-
 exports.initialiseMenu = initialiseMenu;
+exports.getRecipeArray = getRecipeArray;
 },{"../Templates":1,"../recipe_list":7,"./storage":6}],5:[function(require,module,exports){
 //var TastesArray= [];
 //
@@ -771,8 +844,50 @@ return basil.set(key, value); };
 },{"basil.js":8}],7:[function(require,module,exports){
 var recipe_info = [
     {
+        "name": "Chicken nuggets",
+        type: ["breakfast", "diner", "lunch"],
+        "ingredients": [
+            {
+                "quantity": "1 quart",
+                "name": "chicken",
+                "type": "Meat"
+            },
+           
+            {
+                "quantity": "1 tsp",
+                "name": "curry powder",
+                "type": "Condiments"
+            },
+            {
+                "quantity": "1 1/2 tbsp",
+                "name": "olive oil",
+                "type": "Condiments"
+            },
+            {
+                "quantity": "1 tsp",
+                "name": "salt",
+                "type": "Condiments"
+            }
+        ],
+        "steps": [
+            "Bring broth to a low boil.",
+            "Add curry powder and salt.",
+            "Cook lentils for 20 minutes.",
+            "Add rice and simmer for 20 minutes.",
+            "Enjoy!"
+        ],
+        "timers": [
+            0,
+            0,
+            20,
+            20,
+            0
+        ],
+        "imageURL": "https://aos.iacpublishinglabs.com/question/aq/700px-394px/side-dishes-fried-fish_f473f548d36c7b58.jpg?domain=cx.aos.ask.com"
+    },
+    {
         name: "Crock Pot Roast",
-        type: ["diner", "lunch"],
+        type: ["breakfast", "diner", "lunch"],
         "ingredients": [
             {
                 "quantity": "1",
@@ -792,6 +907,11 @@ var recipe_info = [
             {
                 "quantity": "1 package",
                 "name": "dry ranch dressing mix",
+              "type": "Condiments"
+            },
+            {
+                "quantity": "1 1/2 tbsp",
+                "name": "olive oil",
                 "type": "Condiments"
             },
             {
@@ -812,12 +932,45 @@ var recipe_info = [
             0,
             420
         ],
-        imageURL: "http://img.sndimg.com/food/image/upload/w_266/v1/img/recipes/27/20/8/picVfzLZo.jpg",
-        "originalURL": "http://www.food.com/recipe/to-die-for-crock-pot-roast-27208"
+        imageURL: "http://img.sndimg.com/food/image/upload/w_266/v1/img/recipes/27/20/8/picVfzLZo.jpg"
+    },
+    {
+        name: "French fries",
+        type: ["breakfast", "diner", "lunch"],
+        "ingredients": [
+            {
+                "quantity": "1 kg",
+                "name": "potatoe",
+                "type": "Condiments"
+            },
+            {
+                "quantity": "1 1/2 tbsp",
+                "name": "olive oil",
+                "type": "Condiments"
+            },
+            {
+                "quantity": "1/2 tb",
+                "name": "salt",
+                "type": "Bakery"
+            }
+        ],
+        "steps": [
+            "Place it in crock pot.",
+            "Mix with the salt.",
+            "Pour oil.",
+            "Cook on low for 1 hour."
+        ],
+        "timers": [
+            0,
+            0,
+            0,
+            60
+        ],
+        imageURL: "https://i.ytimg.com/vi/QTS4OlryASo/maxresdefault.jpg"
     },
     {
         "name": "Roasted Asparagus",
-        type: ["lunch"],
+        type: ["breakfast", "diner", "lunch"],
         "ingredients": [
             {
                 "quantity": "1 lb",
@@ -859,12 +1012,111 @@ var recipe_info = [
             0,
             0
         ],
-        "imageURL": "http://img.sndimg.com/food/image/upload/w_266/v1/img/recipes/50/84/7/picMcSyVd.jpg",
-        "originalURL": "http://www.food.com/recipe/roasted-asparagus-50847"
+        "imageURL": "http://img.sndimg.com/food/image/upload/w_266/v1/img/recipes/50/84/7/picMcSyVd.jpg"
+    },
+    {
+        name: "Michigan Burger",
+        type: ["breakfast", "diner", "lunch"],
+        "ingredients": [
+            {
+                "quantity": "1",
+                "name": "beef roast",
+                "type": "Meat"
+            },
+            {
+                "quantity": "1 package",
+                "name": "brown gravy mix",
+                "type": "Baking"
+            },
+            {
+                "quantity": "2 pcs",
+                "name": "burger buns",
+                "type": "Bakery"
+            },
+            {
+                "quantity": "1 package",
+                "name": "dried Italian salad dressing mix",
+                "type": "Condiments"
+            },
+            {
+                "quantity": "3 tbsp",
+                "name": "vegetable oil",
+                "type": "Condiments"
+            },
+            
+            {
+                "quantity": "1 package",
+                "name": "dry ranch dressing mix",
+                "type": "Condiments"
+            }
+        ],
+        "steps": [
+            "Place beef roast in crock pot.",
+            "Mix the dried mixes together in a bowl and sprinkle over the roast.",
+            "Pour the water around the roast.",
+            "Cook on low for 7-9 hours."
+        ],
+        "timers": [
+            0,
+            0,
+            0,
+            420
+        ],
+        imageURL: "https://pp.vk.me/c626624/v626624962/3c418/K76HGxi9s0E.jpg"
+    },
+    {
+        name: "Fresh summer salad",
+        type: ["breakfast", "diner", "lunch"],
+        "ingredients": [
+            {
+                "quantity": "150 g",
+                "name": "sausage",
+                "type": "Meat"
+            },
+        
+            {
+                "quantity": "1 package",
+                "name": "dried Italian salad dressing mix",
+                "type": "Condiments"
+            },
+            {
+                "quantity": "1 package",
+                "name": "dry ranch dressing mix",
+              "type": "Condiments"
+            },
+            {
+                "quantity": "1 1/2 tbsp",
+                "name": "olive oil",
+                "type": "Condiments"
+            },
+            {
+                "quantity": "1 pcs",
+                "name": "carrot",
+                "type": "Condiments"
+            },
+            {
+                "quantity": "2 pcs",
+                "name": "tomatoes",
+                "type": "Condiments"
+            }
+        ],
+        "steps": [
+            "Place beef roast in crock pot.",
+            "Mix the dried mixes together in a bowl and sprinkle over the roast.",
+            "Pour the water around the roast.",
+            "Cook on low for 7-9 hours."
+        ],
+        "timers": [
+            0,
+            0,
+            0,
+            420
+        ],
+        imageURL: "http://static.communitytable.parade.com/wp-content/uploads/2016/04/Hawaiian-Tortellini-Salad-2tsri.jpg"
     },
     {
         "name": "Curried Lentils and Rice",
-        type: ["diner", "lunch"],
+        type: ["breakfast", "diner", "lunch"],
         "ingredients": [
             {
                 "quantity": "1 quart",
@@ -910,7 +1162,7 @@ var recipe_info = [
     },
     {
         "name": "Big Night Pizza",
-         type: ["diner", "lunch"],
+         type: ["breakfast", "diner", "lunch"],
         "ingredients": [
             {
                 "quantity": "5 teaspoons",
@@ -974,8 +1226,148 @@ var recipe_info = [
         "imageURL": "http://upload.wikimedia.org/wikipedia/commons/c/c7/Spinach_pizza.jpg"
     },
     {
+        "name": "Bacon sprouts",
+        type: ["breakfast", "diner", "lunch"],
+        "ingredients": [
+            {
+                "quantity": "1 quart",
+                "name": "bacon",
+                "type": "Misc"
+            },
+            {
+                "quantity": "1 cup",
+                "name": "broccoli",
+                "type": "Misc"
+            },
+           
+            {
+                "quantity": "1 tsp",
+                "name": "curry powder",
+                "type": "Condiments"
+            },
+            {
+                "quantity": "1 tsp",
+                "name": "salt",
+                "type": "Condiments"
+            }
+        ],
+        "steps": [
+            "Bring broth to a low boil.",
+            "Add curry powder and salt.",
+            "Cook lentils for 20 minutes.",
+            "Add rice and simmer for 20 minutes.",
+            "Enjoy!"
+        ],
+        "timers": [
+            0,
+            0,
+            20,
+            20,
+            0
+        ],
+        "imageURL": "http://irepo.primecp.com/2015/06/224221/Best-Bacon-Sprouts_Large600_ID-1040346.jpg?v=1040346"
+    },
+    {
+        "name":"Soup with chicken",
+        type: ["breakfast", "diner", "lunch"],
+        "ingredients": [
+            {
+                "quantity": "1 quart",
+                "name": "chicken",
+                "type": "Meat"
+            },
+            {
+                "quantity": "1 cup",
+                "name": "broccoli",
+                "type": "Misc"
+            },
+           
+            {
+                "quantity": "1 tsp",
+                "name": "curry powder",
+                "type": "Condiments"
+            },
+            {
+                "quantity": "1 tsp",
+                "name": "salt",
+                "type": "Condiments"
+            },
+            {
+                "quantity": "700 ml",
+                "name": "water",
+                "type": "Drinks"
+            }
+        ],
+        "steps": [
+            "Bring broth to a low boil.",
+            "Add curry powder and salt.",
+            "Cook lentils for 20 minutes.",
+            "Add rice and simmer for 20 minutes.",
+            "Enjoy!"
+        ],
+        "timers": [
+            0,
+            0,
+            20,
+            20,
+            0
+        ],
+        "imageURL": "https://realfood.tesco.com/media/images/Coconut-Chicken-Noodle-Soup-b7664e46-d72d-41b0-b9ac-47f76c80bdae-0-472x310.jpg"
+    },
+    {
+        "name": "Vegeterian fresh salad",
+        type: ["breakfast", "diner", "lunch"],
+        "ingredients": [
+            {
+                "quantity": "1 tsp",
+                "name": "salt",
+                "type": "Condiments"
+            },
+            {
+                "quantity": "1 package",
+                "name": "dried Italian salad dressing mix",
+                "type": "Condiments"
+            },
+            {
+                "quantity": "1 package",
+                "name": "dry ranch dressing mix",
+              "type": "Condiments"
+            },
+            {
+                "quantity": "1 1/2 tbsp",
+                "name": "olive oil",
+                "type": "Condiments"
+            },
+            {
+                "quantity": "1 pcs",
+                "name": "carrot",
+                "type": "Condiments"
+            },
+            {
+                "quantity": "2 pcs",
+                "name": "tomatoes",
+                "type": "Condiments"
+            }
+        ],
+        "steps": [
+            "Bring broth to a low boil.",
+            "Add curry powder and salt.",
+            "Cook lentils for 20 minutes.",
+            "Add rice and simmer for 20 minutes.",
+            "Enjoy!"
+        ],
+        "timers": [
+            0,
+            0,
+            20,
+            20,
+            0
+        ],
+        "imageURL": "http://povarenysh.ru/upload/content/559eb0fd476f1.jpg"
+    },
+    {
         "name": "Apple Stuffed Acorn Squash",
-         type: ["breakfast", "lunch"],
+         type: ["breakfast", "diner", "lunch"],
         "ingredients": [
             {
                 "quantity": "2",
@@ -1028,12 +1420,58 @@ var recipe_info = [
             30,
             0
         ],
-        "imageURL": "http://elanaspantry.com/wp-content/uploads/2008/10/acorn_squash_with_cranberry.jpg",
-        "originalURL": ""
+        "imageURL": "http://elanaspantry.com/wp-content/uploads/2008/10/acorn_squash_with_cranberry.jpg"
+    },
+    
+    {
+        "name": "Baked panghasius",
+        type: ["breakfast", "diner", "lunch"],
+        "ingredients": [
+            {
+                "quantity": "1 quart",
+                "name": "beef broth",
+                "type": "Fish"
+            },
+            {
+                "quantity": "1 cup",
+                "name": "dried green lentils",
+                "type": "Misc"
+            },
+            {
+                "quantity": "1/2 cup",
+                "name": "basmati rice",
+                "type": "Misc"
+            },
+            {
+                "quantity": "1 tsp",
+                "name": "curry powder",
+                "type": "Condiments"
+            },
+            {
+                "quantity": "1 tsp",
+                "name": "salt",
+                "type": "Condiments"
+            }
+        ],
+        "steps": [
+            "Bring fish to a low boil.",
+            "Add curry powder and salt.",
+            "Cook for 20 minutes.",
+            "Add rice and simmer for 20 minutes.",
+            "Enjoy!"
+        ],
+        "timers": [
+            0,
+            0,
+            20,
+            20,
+            0
+        ],
+        "imageURL": "https://pp.vk.me/c626624/v626624721/4752f/6bl_1YZxnuA.jpg"
     },
     {
         "name": "Mic's Yorkshire Puds",
-         type: ["breakfast"],
+         type: ["breakfast", "diner", "lunch"],
         "ingredients": [
             {
                 "quantity": "200g",
@@ -1078,12 +1516,11 @@ var recipe_info = [
             0,
             30
         ],
-        "imageURL": "http://upload.wikimedia.org/wikipedia/commons/f/f9/Yorkshire_Pudding.jpg",
-        "originalURL": "http://upload.wikimedia.org/wikipedia/commons/f/f9/Yorkshire_Pudding.jpg"
+        "imageURL": "http://upload.wikimedia.org/wikipedia/commons/f/f9/Yorkshire_Pudding.jpg"
     },
     {
-        "name": "Old-Fashioned Oatmeal Cookies",
-         type: ["breakfast"],
+        "name": "Old-Fashioned Oat Cookies",
+         type: ["breakfast", "diner", "lunch"],
         "ingredients": [
             {
                 "quantity": "1 cup",
@@ -1170,12 +1607,76 @@ var recipe_info = [
             8,
             0
         ],
-        "imageURL": "http://s3.amazonaws.com/gmi-digital-library/65caecf7-a8f7-4a09-8513-2659cf92871e.jpg",
-        "originalURL": "#"
+        "imageURL": "http://s3.amazonaws.com/gmi-digital-library/65caecf7-a8f7-4a09-8513-2659cf92871e.jpg"
+    },
+    {
+        "name": "Margarita Pizza",
+         type: ["breakfast", "diner", "lunch"],
+        "ingredients": [
+            {
+                "quantity": "5 teaspoons",
+                "name": "yeast",
+                "type": "Baking"
+            },
+            {
+                "quantity": "5 cups",
+                "name": "flour",
+                "type": "Baking"
+            },
+            {
+                "quantity": "4 tablespoons",
+                "name": "vegetable oil",
+                "type": "Baking"
+            },
+            {
+                "quantity": "2 tablespoons",
+                "name": "sugar",
+                "type": "Baking"
+            },
+            {
+                "quantity": "2 teaspoons",
+                "name": "salt",
+                "type": "Baking"
+            },
+            {
+                "quantity": "2 cups",
+                "name": "hot water",
+                "type": "Misc"
+            },
+            {
+                "quantity": "1/4 cup",
+                "name": "pizza sauce",
+                "type": "Misc"
+            },
+            {
+                "quantity": "3/4 cup",
+                "name": "cheese",
+                "type": "Dairy"
+            }
+        ],
+        "steps": [
+            "Add hot water to yeast in a large bowl and let sit for 15 minutes.",
+            "Mix in oil, sugar, salt, and flour and let sit for 1 hour.",
+            "Knead the dough and spread onto a pan.",
+            "Spread pizza sauce and sprinkle cheese.",
+            "Add any optional toppings as you wish.",
+            "Bake at 400 deg Fahrenheit for 15 minutes.",
+            "Enjoy!"
+        ],
+        "timers": [
+            15,
+            60,
+            0,
+            0,
+            0,
+            15,
+            0
+        ],
+        "imageURL": "https://pp.vk.me/c626624/v626624342/36702/AzULHmywHn8.jpg"
     },
     {
         "name": "Blueberry Oatmeal Squares",
-         type: ["breakfast", "diner"],
+         type: ["breakfast", "diner", "lunch"],
         "ingredients": [
             {
                 "quantity": "2-1/2 cups",
@@ -1243,12 +1744,77 @@ var recipe_info = [
             0,
             0
         ],
-        "imageURL": "http://blog.fatfreevegan.com/images/blueberry-oat-bars2.jpg",
-        "originalURL": "http://blog.fatfreevegan.com/images/blueberry-oat-bars2.jpg"
+        "imageURL": "http://blog.fatfreevegan.com/images/blueberry-oat-bars2.jpg"
+    },
+     {
+        "name": "Dried shrimps with chili",
+         type: ["breakfast", "diner", "lunch"],
+        "ingredients": [
+            
+            {
+                "quantity": "5 cups",
+                "name": "flour",
+                "type": "Baking"
+            },
+            {
+                "quantity": "4 tablespoons",
+                "name": "vegetable oil",
+                "type": "Baking"
+            },
+            {
+                "quantity": "2 tablespoons",
+                "name": "sugar",
+                "type": "Baking"
+            },
+            {
+                "quantity": "2 teaspoons",
+                "name": "salt",
+                "type": "Baking"
+            },
+            {
+                "quantity": "400 g",
+                "name": "shrimps",
+                "type": "Misc"
+            },
+            {
+                "quantity": "1/4 cup",
+                "name": "curry sauce",
+                "type": "Misc"
+            },
+            {
+                "quantity": "2 pcs",
+                "name": "chili pepper",
+                "type": "Misc"
+            },
+            {
+                "quantity": "3/4 cup",
+                "name": "cheese",
+                "type": "Dairy"
+            }
+        ],
+        "steps": [
+            "Add hot water to yeast in a large bowl and let sit for 15 minutes.",
+            "Mix in oil, sugar, salt, and flour and let sit for 1 hour.",
+            "Knead the dough and spread onto a pan.",
+            "Spread pizza sauce and sprinkle cheese.",
+            "Add any optional toppings as you wish.",
+            "Bake at 400 deg Fahrenheit for 15 minutes.",
+            "Enjoy!"
+        ],
+        "timers": [
+            15,
+            60,
+            0,
+            0,
+            0,
+            15,
+            0
+        ],
+        "imageURL": "https://pp.vk.me/c626624/v626624392/3ecdc/MVxjb-ol9JE.jpg"
     },
     {
         "name": "Curried chicken salad",
-         type: ["diner", "lunch"],
+         type: ["breakfast", "diner", "lunch"],
         "ingredients": [
             {
                 "quantity": "3",
@@ -1333,8 +1899,64 @@ var recipe_info = [
             0,
             0
         ],
-        "imageURL": "http://www.chatelaine.com/wp-content/uploads/2013/05/Curried-chicken-salad.jpg",
-        "originalURL": "http://www.chatelaine.com/recipe/stovetop-cooking-method/curried-chicken-salad/"
+        "imageURL": "http://www.chatelaine.com/wp-content/uploads/2013/05/Curried-chicken-salad.jpg"
+    },
+    {
+        "name": "Spaghetti with Asparagus",
+         type: ["breakfast", "diner", "lunch"],
+        "ingredients": [
+            {
+                "quantity": "1/2 cup",
+                "name": "mayonnaise",
+                "type": "Baking"
+            },
+            {
+                "quantity": "1/4 tsp",
+                "name": "salt",
+                "type": "Baking"
+            },
+            {
+                "quantity": "2 pcs",
+                "name": "tomato",
+                "type": "Produce"
+            },
+            
+            {
+                "quantity": "2",
+                "name": "green onions, thinly sliced",
+                "type": "Produce"
+            },
+            
+            {
+                "quantity": "6 leaves",
+                "name": "Boston lettuce",
+                "type": "Produce"
+            }
+        
+        ],
+        "steps": [
+            "ARRANGE chicken in a single layer in a large pot.",
+            "Add water to just cover.",
+            "Bring to a boil over medium-high.",
+            "Flip chicken, reduce heat to medium and simmer until cooked, about 6 more min.",
+            "Cool.",
+            "STIR mayo with lemon zest, juice, curry and salt in large bowl.",
+            "Using 2 forks, shred chicken, then stir into mayo mixture with mango, cranberries, green onions and celery.",
+            "Divide among muffins with lettuce leaves",
+            "Sandwich with tops"
+        ],
+        "timers": [
+            0,
+            0,
+            0,
+            6,
+            0,
+            0,
+            0,
+            0,
+            0
+        ],
+        "imageURL": "http://www.mybiodoctors.com/wp-content/uploads/2013/11/Create-Delicious-HCG-Diet-Dishes-With-These-Incredibly-Easy-Tips.jpg"
     }
     ];
 

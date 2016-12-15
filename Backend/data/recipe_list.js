@@ -1,6 +1,49 @@
 var recipe_info = [
     {
+        "name": "Chicken nuggets",
+        type: ["breakfast", "diner", "lunch"],
+        "ingredients": [
+            {
+                "quantity": "1 quart",
+                "name": "chicken",
+                "type": "Meat"
+            },
+           
+            {
+                "quantity": "1 tsp",
+                "name": "curry powder",
+                "type": "Condiments"
+            },
+            {
+                "quantity": "1 1/2 tbsp",
+                "name": "olive oil",
+                "type": "Condiments"
+            },
+            {
+                "quantity": "1 tsp",
+                "name": "salt",
+                "type": "Condiments"
+            }
+        ],
+        "steps": [
+            "Bring broth to a low boil.",
+            "Add curry powder and salt.",
+            "Cook lentils for 20 minutes.",
+            "Add rice and simmer for 20 minutes.",
+            "Enjoy!"
+        ],
+        "timers": [
+            0,
+            0,
+            20,
+            20,
+            0
+        ],
+        "imageURL": "https://aos.iacpublishinglabs.com/question/aq/700px-394px/side-dishes-fried-fish_f473f548d36c7b58.jpg?domain=cx.aos.ask.com"
+    },
+    {
         name: "Crock Pot Roast",
+        type: ["breakfast", "diner", "lunch"],
         "ingredients": [
             {
                 "quantity": "1",
@@ -20,6 +63,11 @@ var recipe_info = [
             {
                 "quantity": "1 package",
                 "name": "dry ranch dressing mix",
+              "type": "Condiments"
+            },
+            {
+                "quantity": "1 1/2 tbsp",
+                "name": "olive oil",
                 "type": "Condiments"
             },
             {
@@ -40,11 +88,45 @@ var recipe_info = [
             0,
             420
         ],
-        imageURL: "http://img.sndimg.com/food/image/upload/w_266/v1/img/recipes/27/20/8/picVfzLZo.jpg",
-        "originalURL": "http://www.food.com/recipe/to-die-for-crock-pot-roast-27208"
+        imageURL: "http://img.sndimg.com/food/image/upload/w_266/v1/img/recipes/27/20/8/picVfzLZo.jpg"
+    },
+    {
+        name: "French fries",
+        type: ["breakfast", "diner", "lunch"],
+        "ingredients": [
+            {
+                "quantity": "1 kg",
+                "name": "potatoe",
+                "type": "Condiments"
+            },
+            {
+                "quantity": "1 1/2 tbsp",
+                "name": "olive oil",
+                "type": "Condiments"
+            },
+            {
+                "quantity": "1/2 tb",
+                "name": "salt",
+                "type": "Bakery"
+            }
+        ],
+        "steps": [
+            "Place it in crock pot.",
+            "Mix with the salt.",
+            "Pour oil.",
+            "Cook on low for 1 hour."
+        ],
+        "timers": [
+            0,
+            0,
+            0,
+            60
+        ],
+        imageURL: "https://i.ytimg.com/vi/QTS4OlryASo/maxresdefault.jpg"
     },
     {
         "name": "Roasted Asparagus",
+        type: ["breakfast", "diner", "lunch"],
         "ingredients": [
             {
                 "quantity": "1 lb",
@@ -58,7 +140,7 @@ var recipe_info = [
             },
             {
                 "quantity": "1/2 tsp",
-                "name": "kosher salt",
+                "name": "salt",
                 "type": "Baking"
             }
         ],
@@ -86,11 +168,111 @@ var recipe_info = [
             0,
             0
         ],
-        "imageURL": "http://img.sndimg.com/food/image/upload/w_266/v1/img/recipes/50/84/7/picMcSyVd.jpg",
-        "originalURL": "http://www.food.com/recipe/roasted-asparagus-50847"
+        "imageURL": "http://img.sndimg.com/food/image/upload/w_266/v1/img/recipes/50/84/7/picMcSyVd.jpg"
+    },
+    {
+        name: "Michigan Burger",
+        type: ["breakfast", "diner", "lunch"],
+        "ingredients": [
+            {
+                "quantity": "1",
+                "name": "beef roast",
+                "type": "Meat"
+            },
+            {
+                "quantity": "1 package",
+                "name": "brown gravy mix",
+                "type": "Baking"
+            },
+            {
+                "quantity": "2 pcs",
+                "name": "burger buns",
+                "type": "Bakery"
+            },
+            {
+                "quantity": "1 package",
+                "name": "dried Italian salad dressing mix",
+                "type": "Condiments"
+            },
+            {
+                "quantity": "3 tbsp",
+                "name": "vegetable oil",
+                "type": "Condiments"
+            },
+            
+            {
+                "quantity": "1 package",
+                "name": "dry ranch dressing mix",
+                "type": "Condiments"
+            }
+        ],
+        "steps": [
+            "Place beef roast in crock pot.",
+            "Mix the dried mixes together in a bowl and sprinkle over the roast.",
+            "Pour the water around the roast.",
+            "Cook on low for 7-9 hours."
+        ],
+        "timers": [
+            0,
+            0,
+            0,
+            420
+        ],
+        imageURL: "https://pp.vk.me/c626624/v626624962/3c418/K76HGxi9s0E.jpg"
+    },
+    {
+        name: "Fresh summer salad",
+        type: ["breakfast", "diner", "lunch"],
+        "ingredients": [
+            {
+                "quantity": "150 g",
+                "name": "sausage",
+                "type": "Meat"
+            },
+        
+            {
+                "quantity": "1 package",
+                "name": "dried Italian salad dressing mix",
+                "type": "Condiments"
+            },
+            {
+                "quantity": "1 package",
+                "name": "dry ranch dressing mix",
+              "type": "Condiments"
+            },
+            {
+                "quantity": "1 1/2 tbsp",
+                "name": "olive oil",
+                "type": "Condiments"
+            },
+            {
+                "quantity": "1 pcs",
+                "name": "carrot",
+                "type": "Condiments"
+            },
+            {
+                "quantity": "2 pcs",
+                "name": "tomatoes",
+                "type": "Condiments"
+            }
+        ],
+        "steps": [
+            "Place beef roast in crock pot.",
+            "Mix the dried mixes together in a bowl and sprinkle over the roast.",
+            "Pour the water around the roast.",
+            "Cook on low for 7-9 hours."
+        ],
+        "timers": [
+            0,
+            0,
+            0,
+            420
+        ],
+        imageURL: "http://static.communitytable.parade.com/wp-content/uploads/2016/04/Hawaiian-Tortellini-Salad-2tsri.jpg"
     },
     {
         "name": "Curried Lentils and Rice",
+        type: ["breakfast", "diner", "lunch"],
         "ingredients": [
             {
                 "quantity": "1 quart",
@@ -136,6 +318,7 @@ var recipe_info = [
     },
     {
         "name": "Big Night Pizza",
+         type: ["breakfast", "diner", "lunch"],
         "ingredients": [
             {
                 "quantity": "5 teaspoons",
@@ -174,7 +357,7 @@ var recipe_info = [
             },
             {
                 "quantity": "3/4 cup",
-                "name": "mozzarella cheese",
+                "name": "cheese",
                 "type": "Dairy"
             }
         ],
@@ -199,7 +382,148 @@ var recipe_info = [
         "imageURL": "http://upload.wikimedia.org/wikipedia/commons/c/c7/Spinach_pizza.jpg"
     },
     {
+        "name": "Bacon sprouts",
+        type: ["breakfast", "diner", "lunch"],
+        "ingredients": [
+            {
+                "quantity": "1 quart",
+                "name": "bacon",
+                "type": "Misc"
+            },
+            {
+                "quantity": "1 cup",
+                "name": "broccoli",
+                "type": "Misc"
+            },
+           
+            {
+                "quantity": "1 tsp",
+                "name": "curry powder",
+                "type": "Condiments"
+            },
+            {
+                "quantity": "1 tsp",
+                "name": "salt",
+                "type": "Condiments"
+            }
+        ],
+        "steps": [
+            "Bring broth to a low boil.",
+            "Add curry powder and salt.",
+            "Cook lentils for 20 minutes.",
+            "Add rice and simmer for 20 minutes.",
+            "Enjoy!"
+        ],
+        "timers": [
+            0,
+            0,
+            20,
+            20,
+            0
+        ],
+        "imageURL": "http://irepo.primecp.com/2015/06/224221/Best-Bacon-Sprouts_Large600_ID-1040346.jpg?v=1040346"
+    },
+    {
+        "name":"Soup with chicken",
+        type: ["breakfast", "diner", "lunch"],
+        "ingredients": [
+            {
+                "quantity": "1 quart",
+                "name": "chicken",
+                "type": "Meat"
+            },
+            {
+                "quantity": "1 cup",
+                "name": "broccoli",
+                "type": "Misc"
+            },
+           
+            {
+                "quantity": "1 tsp",
+                "name": "curry powder",
+                "type": "Condiments"
+            },
+            {
+                "quantity": "1 tsp",
+                "name": "salt",
+                "type": "Condiments"
+            },
+            {
+                "quantity": "700 ml",
+                "name": "water",
+                "type": "Drinks"
+            }
+        ],
+        "steps": [
+            "Bring broth to a low boil.",
+            "Add curry powder and salt.",
+            "Cook lentils for 20 minutes.",
+            "Add rice and simmer for 20 minutes.",
+            "Enjoy!"
+        ],
+        "timers": [
+            0,
+            0,
+            20,
+            20,
+            0
+        ],
+        "imageURL": "https://realfood.tesco.com/media/images/Coconut-Chicken-Noodle-Soup-b7664e46-d72d-41b0-b9ac-47f76c80bdae-0-472x310.jpg"
+    },
+    {
+        "name": "Vegeterian fresh salad",
+        type: ["breakfast", "diner", "lunch"],
+        "ingredients": [
+            {
+                "quantity": "1 tsp",
+                "name": "salt",
+                "type": "Condiments"
+            },
+            {
+                "quantity": "1 package",
+                "name": "dried Italian salad dressing mix",
+                "type": "Condiments"
+            },
+            {
+                "quantity": "1 package",
+                "name": "dry ranch dressing mix",
+              "type": "Condiments"
+            },
+            {
+                "quantity": "1 1/2 tbsp",
+                "name": "olive oil",
+                "type": "Condiments"
+            },
+            {
+                "quantity": "1 pcs",
+                "name": "carrot",
+                "type": "Condiments"
+            },
+            {
+                "quantity": "2 pcs",
+                "name": "tomatoes",
+                "type": "Condiments"
+            }
+        ],
+        "steps": [
+            "Bring broth to a low boil.",
+            "Add curry powder and salt.",
+            "Cook lentils for 20 minutes.",
+            "Add rice and simmer for 20 minutes.",
+            "Enjoy!"
+        ],
+        "timers": [
+            0,
+            0,
+            20,
+            20,
+            0
+        ],
+        "imageURL": "http://www.burrp.com/know/wp-content/uploads/2015/04/Salad.jpg?utm_source=article&utm_medium=72904&utm_campaign=mention"
+    },
+    {
         "name": "Apple Stuffed Acorn Squash",
+         type: ["breakfast", "diner", "lunch"],
         "ingredients": [
             {
                 "quantity": "2",
@@ -228,7 +552,7 @@ var recipe_info = [
             },
             {
                 "quantity": "2 tablespoons",
-                "name": "melted butter",
+                "name": "butter",
                 "type": "Dairy"
             }
         ],
@@ -252,15 +576,62 @@ var recipe_info = [
             30,
             0
         ],
-        "imageURL": "http://elanaspantry.com/wp-content/uploads/2008/10/acorn_squash_with_cranberry.jpg",
-        "originalURL": ""
+        "imageURL": "http://elanaspantry.com/wp-content/uploads/2008/10/acorn_squash_with_cranberry.jpg"
+    },
+    
+    {
+        "name": "Baked panghasius",
+        type: ["breakfast", "diner", "lunch"],
+        "ingredients": [
+            {
+                "quantity": "1 quart",
+                "name": "beef broth",
+                "type": "Fish"
+            },
+            {
+                "quantity": "1 cup",
+                "name": "dried green lentils",
+                "type": "Misc"
+            },
+            {
+                "quantity": "1/2 cup",
+                "name": "basmati rice",
+                "type": "Misc"
+            },
+            {
+                "quantity": "1 tsp",
+                "name": "curry powder",
+                "type": "Condiments"
+            },
+            {
+                "quantity": "1 tsp",
+                "name": "salt",
+                "type": "Condiments"
+            }
+        ],
+        "steps": [
+            "Bring fish to a low boil.",
+            "Add curry powder and salt.",
+            "Cook for 20 minutes.",
+            "Add rice and simmer for 20 minutes.",
+            "Enjoy!"
+        ],
+        "timers": [
+            0,
+            0,
+            20,
+            20,
+            0
+        ],
+        "imageURL": "https://pp.vk.me/c626624/v626624721/4752f/6bl_1YZxnuA.jpg"
     },
     {
         "name": "Mic's Yorkshire Puds",
+         type: ["breakfast", "diner", "lunch"],
         "ingredients": [
             {
                 "quantity": "200g",
-                "name": "plain flour",
+                "name": "flour",
                 "type": "Baking"
             },
             {
@@ -301,11 +672,11 @@ var recipe_info = [
             0,
             30
         ],
-        "imageURL": "http://upload.wikimedia.org/wikipedia/commons/f/f9/Yorkshire_Pudding.jpg",
-        "originalURL": "http://upload.wikimedia.org/wikipedia/commons/f/f9/Yorkshire_Pudding.jpg"
+        "imageURL": "http://upload.wikimedia.org/wikipedia/commons/f/f9/Yorkshire_Pudding.jpg"
     },
     {
         "name": "Old-Fashioned Oatmeal Cookies",
+         type: ["breakfast", "diner", "lunch"],
         "ingredients": [
             {
                 "quantity": "1 cup",
@@ -364,7 +735,7 @@ var recipe_info = [
             },
             {
                 "quantity": "1/2 cup",
-                "name": "chopped nuts",
+                "name": "nuts",
                 "type": "Baking"
             }
         ],
@@ -392,20 +763,85 @@ var recipe_info = [
             8,
             0
         ],
-        "imageURL": "http://s3.amazonaws.com/gmi-digital-library/65caecf7-a8f7-4a09-8513-2659cf92871e.jpg",
-        "originalURL": "#"
+        "imageURL": "http://s3.amazonaws.com/gmi-digital-library/65caecf7-a8f7-4a09-8513-2659cf92871e.jpg"
+    },
+    {
+        "name": "Margarita Pizza",
+         type: ["breakfast", "diner", "lunch"],
+        "ingredients": [
+            {
+                "quantity": "5 teaspoons",
+                "name": "yeast",
+                "type": "Baking"
+            },
+            {
+                "quantity": "5 cups",
+                "name": "flour",
+                "type": "Baking"
+            },
+            {
+                "quantity": "4 tablespoons",
+                "name": "vegetable oil",
+                "type": "Baking"
+            },
+            {
+                "quantity": "2 tablespoons",
+                "name": "sugar",
+                "type": "Baking"
+            },
+            {
+                "quantity": "2 teaspoons",
+                "name": "salt",
+                "type": "Baking"
+            },
+            {
+                "quantity": "2 cups",
+                "name": "hot water",
+                "type": "Misc"
+            },
+            {
+                "quantity": "1/4 cup",
+                "name": "pizza sauce",
+                "type": "Misc"
+            },
+            {
+                "quantity": "3/4 cup",
+                "name": "cheese",
+                "type": "Dairy"
+            }
+        ],
+        "steps": [
+            "Add hot water to yeast in a large bowl and let sit for 15 minutes.",
+            "Mix in oil, sugar, salt, and flour and let sit for 1 hour.",
+            "Knead the dough and spread onto a pan.",
+            "Spread pizza sauce and sprinkle cheese.",
+            "Add any optional toppings as you wish.",
+            "Bake at 400 deg Fahrenheit for 15 minutes.",
+            "Enjoy!"
+        ],
+        "timers": [
+            15,
+            60,
+            0,
+            0,
+            0,
+            15,
+            0
+        ],
+        "imageURL": "https://pp.vk.me/c626624/v626624342/36702/AzULHmywHn8.jpg"
     },
     {
         "name": "Blueberry Oatmeal Squares",
+         type: ["breakfast", "diner", "lunch"],
         "ingredients": [
             {
                 "quantity": "2-1/2 cups",
-                "name": "rolled oats, (not instant)",
+                "name": "oats",
                 "type": "Baking"
             },
             {
                 "quantity": "1-1/4 cups",
-                "name": "all-purpose flour",
+                "name": "flour",
                 "type": "Baking"
             },
             {
@@ -420,23 +856,18 @@ var recipe_info = [
             },
             {
                 "quantity": "1 cup",
-                "name": "cold butter, cubed",
+                "name": "butter",
                 "type": "Baking"
             },
             {
                 "quantity": "3/4 cup",
-                "name": "packed brown sugar",
+                "name": "sugar",
                 "type": "Baking"
             },
             {
                 "quantity": "3 cups",
                 "name": "fresh blueberries",
                 "type": "Produce"
-            },
-            {
-                "quantity": "1/2 cup",
-                "name": "granulated sugar",
-                "type": "Baking"
             },
             {
                 "quantity": "1/3 cup",
@@ -469,11 +900,77 @@ var recipe_info = [
             0,
             0
         ],
-        "imageURL": "http://blog.fatfreevegan.com/images/blueberry-oat-bars2.jpg",
-        "originalURL": "http://blog.fatfreevegan.com/images/blueberry-oat-bars2.jpg"
+        "imageURL": "http://blog.fatfreevegan.com/images/blueberry-oat-bars2.jpg"
+    },
+     {
+        "name": "Dried shrimps with chili",
+         type: ["breakfast", "diner", "lunch"],
+        "ingredients": [
+            
+            {
+                "quantity": "5 cups",
+                "name": "flour",
+                "type": "Baking"
+            },
+            {
+                "quantity": "4 tablespoons",
+                "name": "vegetable oil",
+                "type": "Baking"
+            },
+            {
+                "quantity": "2 tablespoons",
+                "name": "sugar",
+                "type": "Baking"
+            },
+            {
+                "quantity": "2 teaspoons",
+                "name": "salt",
+                "type": "Baking"
+            },
+            {
+                "quantity": "400 g",
+                "name": "shrimps",
+                "type": "Misc"
+            },
+            {
+                "quantity": "1/4 cup",
+                "name": "curry sauce",
+                "type": "Misc"
+            },
+            {
+                "quantity": "2 pcs",
+                "name": "chili pepper",
+                "type": "Misc"
+            },
+            {
+                "quantity": "3/4 cup",
+                "name": "cheese",
+                "type": "Dairy"
+            }
+        ],
+        "steps": [
+            "Add hot water to yeast in a large bowl and let sit for 15 minutes.",
+            "Mix in oil, sugar, salt, and flour and let sit for 1 hour.",
+            "Knead the dough and spread onto a pan.",
+            "Spread pizza sauce and sprinkle cheese.",
+            "Add any optional toppings as you wish.",
+            "Bake at 400 deg Fahrenheit for 15 minutes.",
+            "Enjoy!"
+        ],
+        "timers": [
+            15,
+            60,
+            0,
+            0,
+            0,
+            15,
+            0
+        ],
+        "imageURL": "https://pp.vk.me/c626624/v626624392/3ecdc/MVxjb-ol9JE.jpg"
     },
     {
         "name": "Curried chicken salad",
+         type: ["breakfast", "diner", "lunch"],
         "ingredients": [
             {
                 "quantity": "3",
@@ -558,8 +1055,64 @@ var recipe_info = [
             0,
             0
         ],
-        "imageURL": "http://www.chatelaine.com/wp-content/uploads/2013/05/Curried-chicken-salad.jpg",
-        "originalURL": "http://www.chatelaine.com/recipe/stovetop-cooking-method/curried-chicken-salad/"
+        "imageURL": "http://www.chatelaine.com/wp-content/uploads/2013/05/Curried-chicken-salad.jpg"
+    },
+    {
+        "name": "Spaghetti with Asparagus",
+         type: ["breakfast", "diner", "lunch"],
+        "ingredients": [
+            {
+                "quantity": "1/2 cup",
+                "name": "mayonnaise",
+                "type": "Baking"
+            },
+            {
+                "quantity": "1/4 tsp",
+                "name": "salt",
+                "type": "Baking"
+            },
+            {
+                "quantity": "2 pcs",
+                "name": "tomato",
+                "type": "Produce"
+            },
+            
+            {
+                "quantity": "2",
+                "name": "green onions, thinly sliced",
+                "type": "Produce"
+            },
+            
+            {
+                "quantity": "6 leaves",
+                "name": "Boston lettuce",
+                "type": "Produce"
+            }
+        
+        ],
+        "steps": [
+            "ARRANGE chicken in a single layer in a large pot.",
+            "Add water to just cover.",
+            "Bring to a boil over medium-high.",
+            "Flip chicken, reduce heat to medium and simmer until cooked, about 6 more min.",
+            "Cool.",
+            "STIR mayo with lemon zest, juice, curry and salt in large bowl.",
+            "Using 2 forks, shred chicken, then stir into mayo mixture with mango, cranberries, green onions and celery.",
+            "Divide among muffins with lettuce leaves",
+            "Sandwich with tops"
+        ],
+        "timers": [
+            0,
+            0,
+            0,
+            6,
+            0,
+            0,
+            0,
+            0,
+            0
+        ],
+        "imageURL": "http://www.mybiodoctors.com/wp-content/uploads/2013/11/Create-Delicious-HCG-Diet-Dishes-With-These-Incredibly-Easy-Tips.jpg"
     }
     ];
 

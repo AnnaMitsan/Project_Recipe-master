@@ -1,0 +1,61 @@
+<!-- The Modal -->
+<!--<div id="myModal" class="modal">-->
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+      
+      <div class="recipeInfoTop"><div class="recipeInfoImage"> <img src="assets/images/page1_img1.jpg" alt=""> </div>
+     <% //var number = parseInt(Math.random() * (getRecipeArray().length)); 
+           //   var nameR = getRecipeArray().[number].name;
+        
+          
+          //console.log("recipesss modal ", getRecipeArray());
+              %>
+          
+          <div class="recipeInfoIngredients"> <h1> </h1>
+              
+              
+              <% 
+function getIngredientsArray(recipe) {
+    var ingredients = recipe.ingredients;
+    var result = [];
+    Object.keys(ingredients).forEach(function(key){
+        result = result.concat(ingredients[key]);
+    });
+
+    return result;
+}  %>
+                
+                <div >
+                            <%= getIngredientsArray(recipe).join(", ") %></div>
+                
+              
+              
+      ingredient name  -  quantity <br>
+      ingredient name  -  quantity<br>
+      ingredient name  -  quantity<br>
+      ingredient name  -  quantity<br>
+      ingredient name  -  quantity<br>
+      ingredient name  -  quantity<br>
+              
+              
+              
+              
+              
+      </div></div>
+      
+      
+      <div class="recipeInfoCook"> 
+      ekdgjvnfhortn'bklsfrjstlg/k erkangt vker grkinr5se kg rbktjbirlkew  rkegnriengrk   rilgo5epgk gnrt ttjkrg AZGTBHKLXTCBTNDSBCH AX N SDTCASC ADdsfvsfbvsdvsfv
+      </div>
+<!--
+    <p>Some text in the Modal..</p>
+      
+        <p>Some text in the Modal..</p>
+        <p>Some text in the Modal..</p>
+       
+-->
+  </div>
+
+<!--</div>-->

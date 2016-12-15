@@ -11,8 +11,22 @@ var BreakfastArray =[];
 var LunchArray =[];
 var DinerArray =[];
 
-///var tastesRecipeArray =[];
+// Get the modal
+var modal = document.getElementById('myModal');
 
+// Get the <span> element that closes the modal
+var span = $("#close");
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
 
 var TastesArray= [];
 
@@ -52,40 +66,52 @@ function showRecipeList(list) {
 
     function showOneRecipe(recipe) {
         addToArray(RecipeArray, recipe, id);
-        
-//        console.log("all - id:"+ RecipeArray[id].id + " name: " + RecipeArray[id].recipe.name + " type: " +RecipeArray[id].recipe.type);       
-        
+         
         if(recipe.type[0]=="breakfast" || recipe.type[1]=="breakfast" || recipe.type[3]=="breakfast"){
             addToArray(BreakfastArray, recipe, breakfastRecipeId);
-             console.log("breakfast - id:"+ RecipeArray[breakfastRecipeId].id + " name: " + RecipeArray[breakfastRecipeId].recipe.name + " type: " +RecipeArray[breakfastRecipeId].recipe.type + " ingredients: "); 
             
             //вывод назвния ингредиентов рецептов из массива завтраков
-            for(var k=0; k<RecipeArray[breakfastRecipeId].recipe.ingredients.length; k++){
-                console.log(RecipeArray[breakfastRecipeId].recipe.ingredients[k].name);
-            }
+//            for(var k=0; k<RecipeArray[breakfastRecipeId].recipe.ingredients.length; k++){
+//                console.log(RecipeArray[breakfastRecipeId].recipe.ingredients[k].name);
+//            }
             
             breakfastRecipeId+=1;
-        }
-        
-         if(recipe.type[0]=="lunch" || recipe.type[1]=="lunch" || recipe.type[3]=="lunch"){
-            addToArray(LunchArray, recipe, lunchRecipeId);
-            lunchRecipeId+=1;
         }
         
          if(recipe.type[0]=="diner" || recipe.type[1]=="diner" || recipe.type[3]=="diner"){
             addToArray(DinerArray, recipe, dinerRecipeId);
             dinerRecipeId+=1;
-        }    
-        var html_code = Templates.RecipeList_OneItem({recipe: recipe});
+        }  
+               
+       var html_code = Templates.RecipeList_OneItem({recipe: recipe});
         var $node = $(html_code);
+        
         $node.find(".more").click(function(){
-            
-        });      
+            var ingrid="";
+            for(var k=0; k<recipe.ingredients.length; k++){
+                       ingrid+=recipe.ingredients[k].name + " - " +  recipe.ingredients[k].quantity + "; <br> ";
+            }
+            var steps="";
+            for(var k=0; k<recipe.steps.length; k++){
+                       steps+=recipe.steps[k] + " ";
+            }
+
+            $(".recipeName").text(recipe.name);
+            $(".recipeInfoImage").attr("src", recipe.imageURL);
+            $(".recipeInfoIngredients").html(ingrid);
+            $(".recipeInfoCook").text(steps);
+            $("#myModal").find(".close").click(function(){
+                $("#myModal").css("display","none");
+            });
+            $("#myModal").css("display","block");
+        }); 
+        
         $recipe_list.append($node);
         id+=1;
     }
-    list.forEach(showOneRecipe);   
+    list.forEach(showOneRecipe); 
 }
+
 
 function initialiseMenu() {
     showRecipeList(Recipe_List); 
@@ -99,34 +125,79 @@ function addToArray(array, recipe, id) {
 }
 
 $("#random-breakfast").click(function(){
-   console.log(randomRecipe(BreakfastArray));
+   // console.log(randomRecipe(BreakfastArray).name);
+    var randRecipe = randomRecipe(BreakfastArray);
+    var ingrid="";
+    for(var k=0; k<randRecipe.ingredients.length; k++){
+               ingrid+=randRecipe.ingredients[k].name + " - " +  randRecipe.ingredients[k].quantity + "; <br> ";
+    }
+    var steps="";
+    for(var k=0; k<randRecipe.steps.length; k++){
+               steps+=randRecipe.steps[k] + " ";
+    }
+    
+    $(".recipeName").text(randRecipe.name);
+    $(".recipeInfoImage").attr("src", randRecipe.imageURL);
+    $(".recipeInfoIngredients").html(ingrid);
+    $(".recipeInfoCook").text(steps);
+    $("#myModal").find(".close").click(function(){
+                $("#myModal").css("display","none");
+            });
+    
+    modal.style.display = "block"; 
 });
 
 $("#random-lunch").click(function(){
-   console.log(randomRecipe(LunchArray));
+    LunchArray=BreakfastArray;
+    var randRecipe = randomRecipe(BreakfastArray);
+    var ingrid="";
+    for(var k=0; k<randRecipe.ingredients.length; k++){
+               ingrid+=randRecipe.ingredients[k].name + " - " +  randRecipe.ingredients[k].quantity + "; <br> ";
+    }
+    var steps="";
+    for(var k=0; k<randRecipe.steps.length; k++){
+               steps+=randRecipe.steps[k] + " ";
+    }
+    
+    $(".recipeName").text(randRecipe.name);
+    $(".recipeInfoImage").attr("src", randRecipe.imageURL);
+    $(".recipeInfoIngredients").html(ingrid);
+    $(".recipeInfoCook").text(steps);
+    $("#myModal").find(".close").click(function(){
+                $("#myModal").css("display","none");
+            });
+    modal.style.display = "block";  
 });
 
 $("#random-diner").click(function(){
-   console.log(randomRecipe(DinerArray));
+    var randRecipe = randomRecipe(BreakfastArray);
+    var ingrid="";
+    for(var k=0; k<randRecipe.ingredients.length; k++){
+               ingrid+=randRecipe.ingredients[k].name + " - " +  randRecipe.ingredients[k].quantity + "; <br> ";
+    }
+    var steps="";
+    for(var k=0; k<randRecipe.steps.length; k++){
+               steps+=randRecipe.steps[k] + " ";
+    }
+    
+    $(".recipeName").text(randRecipe.name);
+    $(".recipeInfoImage").attr("src", randRecipe.imageURL);
+    $(".recipeInfoIngredients").html(ingrid);
+    $(".recipeInfoCook").text(steps);
+    $("#myModal").find(".close").click(function(){
+                $("#myModal").css("display","none");
+            });
+    modal.style.display = "block";
 });
 
 
-function randomRecipe(array) {
-    var number = parseInt(Math.random() * (array.length)); 
-    console.log("random id = "+number)
-    return array[number].recipe.type;
+function randomRecipe(list) {
+    var number = parseInt(Math.random() * (list.length));   
+    return list[number].recipe;
+    
 }
 
-///console.log(getTastesArray());
 
-/////
-//////////
-//////
-///////
-//////
-////
-////
-////
 
 
 
@@ -419,6 +490,6 @@ function clearTastes(){
     storage.clear;
 }
 
-console.log("tastes " +getTastesArray());
 
 exports.initialiseMenu = initialiseMenu;
+exports.getRecipeArray = getRecipeArray;
