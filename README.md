@@ -1,4 +1,5 @@
-# JS-Pizza
-
-## Update 21.05.2016
-Відключено не потрібний JavaScript. https://github.com/seagullua/JS-Pizza/commit/4313efd27a23cab2890c38ece1b8cecd87faf4af
+This site allows people to choose the recipe for their meal.
+There are three buttons - for breakfast, lunch and diner.
+You click on anyone and get a randomly chosed recipe.
+There is also a page for users tastes - you can check what type of food you prefer or not (meat/eggs/nuts/...). 
+This information saved to browser cookie.
